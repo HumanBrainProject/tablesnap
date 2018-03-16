@@ -31,10 +31,18 @@ def days_ago(tstamp):
 
 def get_bucket(args):
     try:
-        s3conn = boto.s3.connect_to_region(args.aws_region,
-                                           aws_access_key_id=args.key,
-                                           aws_secret_access_key=args.secret,
-                                           security_token=args.token)
+#        s3conn = boto.s3.connect_to_region(args.aws_region,
+#                                           aws_access_key_id=args.key,
+#                                           aws_secret_access_key=args.secret,
+#                                           security_token=args.token)
+        #
+        # hardcoded access to CSCS s3 endpoint
+        #             
+        s3conn = boto.connect_s3(aws_access_key_id=self.key,
+                             aws_secret_access_key=self.secret,
+                             host = 'object-s3.cscs.ch',
+                             port = 443,
+                             calling_format = boto.s3.connection.OrdinaryCallingFormat())
         return s3conn.get_bucket(args.bucket)
     except boto.exception.BotoServerError, e:
         log.error('Problem initializing S3 connection: %s', e)
