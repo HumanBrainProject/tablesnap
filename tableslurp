@@ -64,8 +64,8 @@ def get_bucket(region, key, secret, token, bucket_name):
         #
         # hardcoded access to CSCS s3 endpoint
         #             
-        s3 = boto.connect_s3(aws_access_key_id=self.key,
-                             aws_secret_access_key=self.secret,
+        s3 = boto.connect_s3(aws_access_key_id=key,
+                             aws_secret_access_key=secret,
                              host = 'object-s3.cscs.ch',
                              port = 443,
                              calling_format = boto.s3.connection.OrdinaryCallingFormat())
